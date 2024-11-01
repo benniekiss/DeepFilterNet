@@ -17,7 +17,7 @@ from df.config import config
 from df.model import ModelParams
 
 
-def get_device(device: Optional[str]):
+def get_device(device: Optional[str] = None):
     s = device or config("DEVICE", default="", section="train")
     if not s:
         if torch.cuda.is_available():
