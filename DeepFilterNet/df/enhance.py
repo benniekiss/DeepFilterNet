@@ -126,7 +126,7 @@ def init_df(
         config_allow_defaults (bool): Whether to allow initializing new config values with defaults.
         epoch (str): Checkpoint epoch to load. Options are `best`, `latest`, `<int>`, and `none`.
             `none` disables checkpoint loading. Defaults to `best`.
-        device (str): The torch compute device to run the model.
+        device (str): Set the torch compute device.
             If None, will automatically choose an available backend. (Optional)
 
     Returns:
@@ -232,7 +232,7 @@ def enhance(
         pad (bool): Pad the audio to compensate for delay due to STFT/ISTFT.
         atten_lim_db (float): An optional noise attenuation limit in dB. E.g. an attenuation limit of
             12 dB only suppresses 12 dB and keeps the remaining noise in the resulting audio.
-        device (str): The torch compute device to run the model.
+        device (str): Set the torch compute device.
             If None, will automatically choose an available backend. (Optional)
 
     Returns:
@@ -400,9 +400,8 @@ def run():
     parser.add_argument("--no-df-stage", action="store_true")
     parser.add_argument(
         "--device",
-        "-d",
         type=str,
-        help="Specify the torch compute device",
+        help="Set the torch compute device",
     )
     args = parser.parse_args()
     main(args)
