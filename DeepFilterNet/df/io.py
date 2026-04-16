@@ -8,15 +8,22 @@ from numpy import ndarray
 from torch import Tensor
 from packaging import version
 
+from df.logger import warn_once
+from df.utils import download_file, get_cache_dir, get_git_root
 
 if version.parse(ta.__version__) >= version.parse("2.9.0"):
-    from torchcodec.decoders import AudioDecoder
-    from torchcodec._core import AudioStreamMetadata
+    try:
+        from torchcodec.decoders import AudioDecoder
+        from torchcodec._core import AudioStreamMetadata
 
-    AudioStreamMetadataType = AudioStreamMetadata
+        AudioStreamMetadataType = AudioStreamMetadata
 
-    TA_RESAMPLE_SINC = "sinc_interp_hann"
-    TA_RESAMPLE_KAISER = "sinc_interp_kaiser"
+        TA_RESAMPLE_SINC = "sinc_interp_hann"
+        TA_RESAMPLE_KAISER = "sinc_interp_kaiser"
+    except ImportError:
+        warn_once("torchcodec could not be loaded. Loading audio from files will not be possible.")
+
+        AudioStreamMetadataType = None
 else:
     try:
         from torchaudio import AudioMetaData
@@ -30,9 +37,6 @@ else:
         TA_RESAMPLE_KAISER = "kaiser_window"
 
     AudioStreamMetadataType = AudioMetaData
-
-from df.logger import warn_once
-from df.utils import download_file, get_cache_dir, get_git_root
 
 
 def load_audio(
