@@ -23,9 +23,9 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-deepfilterlib = { version = "0.5.7" }
-deepfilterdataloader = { version = "0.5.7", optional = true }
-python = ">=3.8,<3.14"
+python = ">=3.10,<3.14"
+deepfilterlib = { path = "../pyDF/" }
+deepfilterdataloader = { path = "../pyDF-data/", optional = true }
 numpy = ">=2,<3"
 loguru = ">=0.5"
 appdirs = "^1.4"
@@ -49,7 +49,7 @@ dnsmos-local = ["onnxruntime"]
 deepFilter = "df.enhance:run"
 deep-filter-py = "df.enhance:run"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 poethepoet = "^0.26"
 
 [tool.poe.tasks]
